@@ -10,15 +10,19 @@ import javax.swing.JPanel;
 public class GUI {
 	public GUI() {
 		JButton button = new JButton();
-
-		JLabel label = new JLabel("Aperte se Claudino é");
+//		JButton buttons[] = new JButton[196];
+		
+		JLabel label = new JLabel("Campo Minado");
 
 		JPanel panel = new JPanel();
 		panel.setBorder(BorderFactory.createEmptyBorder(180, 230, 180, 230));
-		panel.setLayout(new GridLayout(5,5));
-		panel.add(button);
+		panel.setLayout(new GridLayout(14,14));
+//		for(int i = 0; i < 196; i++) {
+			panel.add(button);			
+//		}
 		panel.add(label);
 
+		
 		JFrame frame = new JFrame();
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
