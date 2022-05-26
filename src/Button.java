@@ -1,5 +1,6 @@
+import javax.swing.JButton;
 
-public class Button {
+public class Button extends JButton {
 	public Button() {
 		
 	}
