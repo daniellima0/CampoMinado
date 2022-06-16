@@ -1,18 +1,22 @@
 import javax.swing.JPanel;
 
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Random;
+
 
 public class Grid extends JPanel{
 	private Cell[][] cells;
-	private int numLinhas;
-	private int numColunas;
+	private int numLinhas = 10;
+	private int numColunas = 10;
 	
 	public Grid() {
 		setMaximumSize(new Dimension(500, 450));
-		setLayout(new GridLayout(10,10));
-		createCells(10, 10);
+		setLayout(new GridLayout(numLinhas,numColunas));
+		createCells(numLinhas, numColunas);
+		adicionarMinas();
 	}
 	
 	public void createCells(int numLinhas, int numColunas) {
@@ -25,6 +29,59 @@ public class Grid extends JPanel{
 		}
 	}
 	
+	public int numMinasVizinhas(int linha, int coluna){
+		int num = 0;
+		
+		// fazer que nem claudinho (criar vetor de vizinhos)
+		
+		if(cells[linha - 1][coluna - 1].isMinado() == true) {
+			num++;
+		}
+		
+		if(cells[linha - 1][coluna - 1].isMinado() == true) {
+			num++;
+		}
+		
+		if(cells[linha - 1][coluna - 1].isMinado() == true) {
+			num++;
+		}
+		
+		if(cells[linha - 1][coluna - 1].isMinado() == true) {
+			num++;
+		}
+		
+		if(cells[linha - 1][coluna - 1].isMinado() == true) {
+			num++;
+		}
+		
+		if(cells[linha - 1][coluna - 1].isMinado() == true) {
+			num++;
+		}
+		
+		if(cells[linha - 1][coluna - 1].isMinado() == true) {
+			num++;
+		}
+		
+		if(cells[linha - 1][coluna - 1].isMinado() == true) {
+			num++;
+		}
+		
+		return num;
+	}
+	
+	 public void adicionarMinas(){
+        int n = 30;
+        Random rand = new Random();
+        while (n > 0){            
+            int l = rand.nextInt(numLinhas); 
+            int c = rand.nextInt(numColunas);             
+            if (cells[l][c].minar()){
+                n--;
+            }            
+        }
+	 }
+	
+	//daqui pra baixo é get e set
 	public Cell[][] getCells() {
 		return cells;
 	}
