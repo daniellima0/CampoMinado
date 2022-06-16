@@ -13,16 +13,17 @@ public class GameScreen {
 		JFrame frame = new JFrame();
 		frame.setTitle("Campo Minado");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(500,500));
+		frame.setPreferredSize(new Dimension(420,567));
 		frame.setResizable(false);
 
 		JPanel window = new JPanel();
 		window.setLayout(new BoxLayout(window, BoxLayout.Y_AXIS));
 		window.setBorder(BorderFactory.createLineBorder(Color.black));
+		window.setBackground(Color.WHITE);
 		
 		JPanel topbar = new JPanel();
-		topbar.setBackground(Color.pink);
-		topbar.setMaximumSize(new Dimension(500, 50));
+		topbar.setMaximumSize(new Dimension(420, 105));
+		topbar.setBackground(Color.WHITE);
 		
 		JLabel temp = new JLabel("dificuldade, tempo, número de bandeiras vem aqui");		
 		topbar.add(temp);

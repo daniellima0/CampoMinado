@@ -13,7 +13,7 @@ public class Grid extends JPanel{
 	private int numColunas = 10;
 	
 	public Grid() {
-		setMaximumSize(new Dimension(500, 450));
+		setMaximumSize(new Dimension(420, 420));
 		setLayout(new GridLayout(numLinhas,numColunas));
 		createCells(numLinhas, numColunas);
 		adicionarMinas();

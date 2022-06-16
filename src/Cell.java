@@ -1,8 +1,13 @@
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+
 import javax.swing.SwingUtilities;
 import java.util.ArrayList;
 
@@ -22,6 +27,14 @@ public class Cell extends JButton {
 		revelado = false;
 		marcado = false;
 		clicado = false;
+		
+		try {
+		    Image img = ImageIO.read(getClass().getResource("./Assets/facingDown.png"));
+		    img = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
+		    this.setIcon(new ImageIcon(img));
+		} catch (Exception ex) {
+		    System.out.println(ex);
+		}
 		
 		this.addMouseListener(new java.awt.event.MouseAdapter() {
 	         public void mousePressed(MouseEvent e) {
@@ -83,7 +96,15 @@ public class Cell extends JButton {
 //		this.numMinasVizinhas = numMinasVizinhas(1, 2);
 		
 		if (numMinasVizinhas == 0) {
-			Icon zeroIcon = new ImageIcon("C:\\editicon.PNG");
+			  try {
+			    Image img = ImageIO.read(getClass().getResource("./Assets/0.png"));
+			    img = img.getScaledInstance(50, 40, java.awt.Image.SCALE_SMOOTH);
+			    this.setIcon(new ImageIcon(img));
+			  } catch (Exception ex) {
+			    System.out.println(ex);
+			  }
+			
+			System.out.println("chegou aqui");
 			// revelar o restante que é 0
 		} else if (numMinasVizinhas == 1) {
 			// botar jpg de 1 aqui
