@@ -63,14 +63,13 @@ public class Cell extends JButton {
 			if(this.minado) {
 				System.out.println("ta minado");
 				this.minado = true;
-				revelar();				
 				// implementar fim de jogo aqui
 			} else {
 				System.out.println("nao ta minado");
 				numMinasVizinhas = qtdMinasVizinhas();	
 				System.out.println(numMinasVizinhas);
-				revelar();
 			}
+			revelar();
 		}
 		
 	}
@@ -80,9 +79,11 @@ public class Cell extends JButton {
 			return;
 		} else {
 			if (!this.marcado) {
+				adicionarImagem("./Assets/flagged.png");
 				System.out.println("botar flag");	
 				this.marcado = true;
 			} else {
+				adicionarImagem("./Assets/facingDown.png");
 				System.out.println("tirar flag");	
 				this.marcado = false;
 			}
@@ -94,21 +95,59 @@ public class Cell extends JButton {
 		// checar os vizinhos cuja quantidade de minas vizinha é 0, se for, chamar função revelar
 		
 //		this.numMinasVizinhas = numMinasVizinhas(1, 2);
-		
-		if (numMinasVizinhas == 0) {
-			  try {
-			    Image img = ImageIO.read(getClass().getResource("./Assets/0.png"));
-			    img = img.getScaledInstance(50, 40, java.awt.Image.SCALE_SMOOTH);
-			    this.setIcon(new ImageIcon(img));
-			  } catch (Exception ex) {
-			    System.out.println(ex);
-			  }
-			
-			System.out.println("chegou aqui");
-			// revelar o restante que é 0
-		} else if (numMinasVizinhas == 1) {
-			// botar jpg de 1 aqui
+		if(this.numMinasVizinhas == 0) {
+			for(int i = 0; i < vizinhos.size(); i++) {	
+				vizinhos.get(i).revelar();
+			}			
 		}
+		
+		if(this.minado) {
+			adicionarImagem("./Assets/bomb.png");
+		} else {
+			switch(numMinasVizinhas) {
+			  case 0:
+				adicionarImagem("./Assets/0.png");
+				System.out.println("chegou aqui");
+				// revelar o restante que é 0
+			    break;
+			  case 1:
+				adicionarImagem("./Assets/1.png");
+			    break;
+			  case 2:
+				adicionarImagem("./Assets/2.png");
+			    break;
+			  case 3:
+				adicionarImagem("./Assets/3.png");
+			    break;
+			  case 4:
+				adicionarImagem("./Assets/4.png");
+			    break;
+			  case 5:
+				adicionarImagem("./Assets/5.png");
+			    break;
+			  case 6:
+				adicionarImagem("./Assets/6.png");
+			    break;
+			  case 7:
+				adicionarImagem("./Assets/7.png");
+			    break;
+			  case 8:
+				adicionarImagem("./Assets/8.png");
+			    break;
+			  default:
+			    // code block
+			}
+		}
+	}
+	
+	public void adicionarImagem(String caminho) {
+		try {
+		    Image img = ImageIO.read(getClass().getResource(caminho));
+		    img = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
+		    this.setIcon(new ImageIcon(img));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
 	}
 	
 	public void adicionarVizinhos(Cell vizinho){

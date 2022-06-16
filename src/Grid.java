@@ -51,7 +51,7 @@ public class Grid extends JPanel{
 	}
 	
 	public void adicionarMinas(){
-        int n = 30;
+        int n = 10;
         Random rand = new Random();
         while (n > 0){            
             int l = rand.nextInt(numLinhas); 
