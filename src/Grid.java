@@ -18,21 +18,23 @@ public class Grid extends JPanel{
 		createCells(numLinhas, numColunas);
 		adicionarMinas();
 		
+		// adicionar vizinhos a cada célula
+		// POR ISSO NUMA FUNÇÃO
 		for (int i = 0; i < numLinhas; i++) {
 		    for (int j = 0; j < numColunas; j++) {
 		        if (i > 0){
-		            if (j > 0) matriz[i][j].adicionarVizinhos(matriz[i-1][j-1]);
-		            matriz[i][j].adicionarVizinhos(matriz[i-1][j]);
-		            if (j < numColunas-1) matriz[i][j].adicionarVizinhos(matriz[i-1][j+1]);
+		            if (j > 0) cells[i][j].adicionarVizinhos(cells[i-1][j-1]);
+		            cells[i][j].adicionarVizinhos(cells[i-1][j]);
+		            if (j < numColunas-1) cells[i][j].adicionarVizinhos(cells[i-1][j+1]);
 		        }
 		        
-		        if (j > 0) matriz[i][j].adicionarVizinhos(matriz[i][j-1]);                
-		        if (j < numColunas-1)matriz[i][j].adicionarVizinhos(matriz[i][j+1]);
+		        if (j > 0) cells[i][j].adicionarVizinhos(cells[i][j-1]);                
+		        if (j < numColunas-1)cells[i][j].adicionarVizinhos(cells[i][j+1]);
 		        
 		        if(i < numLinhas -1){
-		            if (j > 0)matriz[i][j].adicionarVizinhos(matriz[i+1][j-1]);
-		            matriz[i][j].adicionarVizinhos(matriz[i+1][j]);
-		            if (j < numColunas-1)matriz[i][j].adicionarVizinhos(matriz[i+1][j+1]);
+		            if (j > 0)cells[i][j].adicionarVizinhos(cells[i+1][j-1]);
+		            cells[i][j].adicionarVizinhos(cells[i+1][j]);
+		            if (j < numColunas-1)cells[i][j].adicionarVizinhos(cells[i+1][j+1]);
 		        }
 		    }
 		}
@@ -48,47 +50,7 @@ public class Grid extends JPanel{
 		}
 	}
 	
-	public int numMinasVizinhas(int linha, int coluna){
-		int num = 0;
-		
-		// fazer que nem claudinho (criar vetor de vizinhos)
-		
-		if(cells[linha - 1][coluna - 1].isMinado() == true) {
-			num++;
-		}
-		
-		if(cells[linha - 1][coluna - 1].isMinado() == true) {
-			num++;
-		}
-		
-		if(cells[linha - 1][coluna - 1].isMinado() == true) {
-			num++;
-		}
-		
-		if(cells[linha - 1][coluna - 1].isMinado() == true) {
-			num++;
-		}
-		
-		if(cells[linha - 1][coluna - 1].isMinado() == true) {
-			num++;
-		}
-		
-		if(cells[linha - 1][coluna - 1].isMinado() == true) {
-			num++;
-		}
-		
-		if(cells[linha - 1][coluna - 1].isMinado() == true) {
-			num++;
-		}
-		
-		if(cells[linha - 1][coluna - 1].isMinado() == true) {
-			num++;
-		}
-		
-		return num;
-	}
-	
-	 public void adicionarMinas(){
+	public void adicionarMinas(){
         int n = 30;
         Random rand = new Random();
         while (n > 0){            
@@ -97,8 +59,8 @@ public class Grid extends JPanel{
             if (cells[l][c].minar()){
                 n--;
             }            
-        }
-	 }
+        }	 
+     }
 	
 	//daqui pra baixo é get e set
 	public Cell[][] getCells() {

@@ -1,3 +1,5 @@
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
@@ -12,14 +14,10 @@ public class Cell extends JButton {
 	private int numMinasVizinhas;
 	ArrayList<Cell> vizinhos;
 	
-//	public Cell(boolean minado) {
-//		this.minado = minado;
-//		revelado = false;
-//		marcado = false;
-//		clicado = false;
-//	}
 	
 	public Cell() {
+		this.vizinhos = new ArrayList();
+		numMinasVizinhas = qtdMinasVizinhas();
 		minado = false;
 		revelado = false;
 		marcado = false;
@@ -44,11 +42,7 @@ public class Cell extends JButton {
 			return false;
 		}
 	}
-	
-	// checar:
-	// se é minado
-	// se o número de minas ao redor é igual a 0
-	// mostrar o número de minas ao redor
+
 	private void botaoEsquerdoPressionado() {
 		if (this.revelado) {
 			return;
@@ -56,13 +50,14 @@ public class Cell extends JButton {
 			if(this.minado) {
 				System.out.println("ta minado");
 				this.minado = true;
+				revelar();				
 				// implementar fim de jogo aqui
 			} else {
 				System.out.println("nao ta minado");
+				numMinasVizinhas = qtdMinasVizinhas();	
+				System.out.println(numMinasVizinhas);
 				revelar();
 			}
-			
-			
 		}
 		
 	}
@@ -83,10 +78,12 @@ public class Cell extends JButton {
 	
 	public void revelar() {
 		this.revelado = true;
+		// checar os vizinhos cuja quantidade de minas vizinha é 0, se for, chamar função revelar
 		
-		this.numMinasVizinhas = numMinasVizinhas(1, 2);
+//		this.numMinasVizinhas = numMinasVizinhas(1, 2);
 		
 		if (numMinasVizinhas == 0) {
+			Icon zeroIcon = new ImageIcon("C:\\editicon.PNG");
 			// revelar o restante que é 0
 		} else if (numMinasVizinhas == 1) {
 			// botar jpg de 1 aqui
@@ -96,6 +93,15 @@ public class Cell extends JButton {
 	public void adicionarVizinhos(Cell vizinho){
         this.vizinhos.add(vizinho);
     }
+	
+	public int qtdMinasVizinhas() {
+		for(int i = 0; i < vizinhos.size(); i++) {
+			if(vizinhos.get(i).minado) {
+				numMinasVizinhas++;
+			}
+		}
+		return numMinasVizinhas;
+	}
 	
 	// daqui pra baixo é get e set
 	public boolean isMinado() {
@@ -129,4 +135,13 @@ public class Cell extends JButton {
 	public void setClicado(boolean clicado) {
 		this.clicado = clicado;
 	}
+	
+	public int getNumMinasVizinhas() {
+		return numMinasVizinhas;
+	}
+
+	public void setNumMinasVizinhas(int numMinasVizinhas) {
+		this.numMinasVizinhas = numMinasVizinhas;
+	}
+
 }
