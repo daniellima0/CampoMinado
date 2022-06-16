@@ -17,6 +17,25 @@ public class Grid extends JPanel{
 		setLayout(new GridLayout(numLinhas,numColunas));
 		createCells(numLinhas, numColunas);
 		adicionarMinas();
+		
+		for (int i = 0; i < numLinhas; i++) {
+		    for (int j = 0; j < numColunas; j++) {
+		        if (i > 0){
+		            if (j > 0) matriz[i][j].adicionarVizinhos(matriz[i-1][j-1]);
+		            matriz[i][j].adicionarVizinhos(matriz[i-1][j]);
+		            if (j < numColunas-1) matriz[i][j].adicionarVizinhos(matriz[i-1][j+1]);
+		        }
+		        
+		        if (j > 0) matriz[i][j].adicionarVizinhos(matriz[i][j-1]);                
+		        if (j < numColunas-1)matriz[i][j].adicionarVizinhos(matriz[i][j+1]);
+		        
+		        if(i < numLinhas -1){
+		            if (j > 0)matriz[i][j].adicionarVizinhos(matriz[i+1][j-1]);
+		            matriz[i][j].adicionarVizinhos(matriz[i+1][j]);
+		            if (j < numColunas-1)matriz[i][j].adicionarVizinhos(matriz[i+1][j+1]);
+		        }
+		    }
+		}
 	}
 	
 	public void createCells(int numLinhas, int numColunas) {

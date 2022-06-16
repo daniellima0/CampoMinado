@@ -2,12 +2,15 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
+import java.util.ArrayList;
 
 public class Cell extends JButton {
 	private boolean minado;
 	private boolean revelado;
 	private boolean marcado;
 	private boolean clicado;
+	private int numMinasVizinhas;
+	ArrayList<Cell> vizinhos;
 	
 //	public Cell(boolean minado) {
 //		this.minado = minado;
@@ -41,6 +44,7 @@ public class Cell extends JButton {
 			return false;
 		}
 	}
+	
 	// checar:
 	// se é minado
 	// se o número de minas ao redor é igual a 0
@@ -55,8 +59,7 @@ public class Cell extends JButton {
 				// implementar fim de jogo aqui
 			} else {
 				System.out.println("nao ta minado");
-				// chamar a função de revelar
-				// e botar isso aqui dentrothis.revelado = true;
+				revelar();
 			}
 			
 			
@@ -77,6 +80,22 @@ public class Cell extends JButton {
 			}
 		}
 	}
+	
+	public void revelar() {
+		this.revelado = true;
+		
+		this.numMinasVizinhas = numMinasVizinhas(1, 2);
+		
+		if (numMinasVizinhas == 0) {
+			// revelar o restante que é 0
+		} else if (numMinasVizinhas == 1) {
+			// botar jpg de 1 aqui
+		}
+	}
+	
+	public void adicionarVizinhos(Cell vizinho){
+        this.vizinhos.add(vizinho);
+    }
 	
 	// daqui pra baixo é get e set
 	public boolean isMinado() {
