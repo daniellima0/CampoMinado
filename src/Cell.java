@@ -1,12 +1,9 @@
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 
 import javax.swing.SwingUtilities;
 import java.util.ArrayList;
@@ -95,6 +92,7 @@ public class Cell extends JButton {
 		
 		if(this.minado) {
 			adicionarImagem("./Assets/bomb.png");
+			new Menu();
 		} else {
 			switch(numMinasVizinhas) {
 			  case 0:
@@ -147,7 +145,7 @@ public class Cell extends JButton {
 		  }
 	}
 	
-	public void adicionarVizinhos(Cell vizinho){
+	public void adicionarVizinho(Cell vizinho){
         this.vizinhos.add(vizinho);
     }
 	

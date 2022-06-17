@@ -1,6 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -9,12 +9,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GameScreen {
+	public JFrame GameScreenFrame;
 	public GameScreen() {
-		JFrame frame = new JFrame();
-		frame.setTitle("Campo Minado");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(420,567));
-		frame.setResizable(false);
+		GameScreenFrame = new JFrame();
+		GameScreenFrame.setTitle("Campo Minado");
+		GameScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GameScreenFrame.setPreferredSize(new Dimension(500,600));
+		GameScreenFrame.setResizable(false);
 
 		JPanel window = new JPanel();
 		window.setLayout(new BoxLayout(window, BoxLayout.Y_AXIS));
@@ -22,10 +23,12 @@ public class GameScreen {
 		window.setBackground(Color.WHITE);
 		
 		JPanel topbar = new JPanel();
-		topbar.setMaximumSize(new Dimension(420, 105));
+		topbar.setMaximumSize(new Dimension(420, 70));
 		topbar.setBackground(Color.WHITE);
 		
-		JLabel temp = new JLabel("dificuldade, tempo, número de bandeiras vem aqui");		
+		JLabel temp = new JLabel(" CAMPO MINADO");
+		temp.setFont(new Font("Sans Serif", Font.PLAIN, 30));
+		temp.setForeground(Color.BLUE);
 		topbar.add(temp);
 		
 		Grid grid = new Grid();
@@ -33,9 +36,10 @@ public class GameScreen {
 		window.add(topbar);
 		window.add(grid);
 		
-		
-		frame.add(window);
-		frame.pack(); //nao sei o que eh mas se tirar n funciona
-		frame.setVisible(true);
+		GameScreenFrame.add(window);
+		GameScreenFrame.pack(); //nao sei o que eh mas se tirar n funciona
+		GameScreenFrame.setVisible(true);
 	}
+	
+	
 }
