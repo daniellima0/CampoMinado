@@ -54,7 +54,7 @@ public class Cell extends JButton {
 	}
 
 	private void botaoEsquerdoPressionado() {
-		if (this.revelado) {
+		if (this.revelado || this.marcado) {
 			return;
 		} else {
 			if(this.minado) {
