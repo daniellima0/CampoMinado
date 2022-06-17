@@ -67,6 +67,22 @@ public class Grid extends JPanel{
 		return cells;
 	}
 
+	public int getNumLinhas() {
+		return numLinhas;
+	}
+
+	public void setNumLinhas(int numLinhas) {
+		this.numLinhas = numLinhas;
+	}
+
+	public int getNumColunas() {
+		return numColunas;
+	}
+
+	public void setNumColunas(int numColunas) {
+		this.numColunas = numColunas;
+	}
+
 	public void setCells(Cell[][] cells) {
 		this.cells = cells;
 	}

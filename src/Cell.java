@@ -92,14 +92,6 @@ public class Cell extends JButton {
 	
 	public void revelar() {
 		this.revelado = true;
-		// checar os vizinhos cuja quantidade de minas vizinha é 0, se for, chamar função revelar
-		
-//		this.numMinasVizinhas = numMinasVizinhas(1, 2);
-		if(this.numMinasVizinhas == 0) {
-			for(int i = 0; i < vizinhos.size(); i++) {	
-				vizinhos.get(i).revelar();
-			}			
-		}
 		
 		if(this.minado) {
 			adicionarImagem("./Assets/bomb.png");
@@ -108,7 +100,12 @@ public class Cell extends JButton {
 			  case 0:
 				adicionarImagem("./Assets/0.png");
 				System.out.println("chegou aqui");
-				// revelar o restante que é 0
+//				for(int i = 0; i < vizinhos.size(); i++) {
+//					if (vizinhos.get(i).numMinasVizinhas == 0 && vizinhos.get(i).revelado == false 
+//							&& vizinhos.get(i).minado == false) {
+//						vizinhos.get(i).revelar();
+//					}
+//				}
 			    break;
 			  case 1:
 				adicionarImagem("./Assets/1.png");
