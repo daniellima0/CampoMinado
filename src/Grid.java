@@ -16,8 +16,18 @@ public class Grid extends JPanel{
 		createCells(numLinhas, numColunas);
 		adicionarMinas();
 		adicionaVizinhos();
+		vizinhos();
 	}
 	
+	public void vizinhos() {
+		for(int i = 0; i < numLinhas; i++) {
+			for(int j = 0; j < numColunas; j++) {
+				if(!cells[i][j].isMinado()) {
+					cells[i][j].qtdMinasVizinhas();
+				}
+			}
+		}
+	}
 	
 	
 	public void adicionaVizinhos() {
@@ -45,7 +55,7 @@ public class Grid extends JPanel{
 		cells = new Cell[numLinhas][numColunas];
 		for(int i = 0; i < numLinhas; i++) {
 			for(int j = 0; j < numColunas; j++) {
-				cells[i][j] = new Cell();
+				cells[i][j] = new Cell(i, j, this);
 				add(cells[i][j]);
 			}
 		}
@@ -81,6 +91,18 @@ public class Grid extends JPanel{
 				cells[i][j].setEnabled(false);
 	        }
 	    }
+	}
+	
+	public void dfs(int x, int y) throws InterruptedException {
+		final int[] dx = {-1,1,0,0};
+		final int[] dy = {0,0,-1,1};
+		for(int i=0; i<4; i++) {
+			int row = x+dx[i];
+			int col = y+dy[i];
+			if(row >= 0 && row < numLinhas && col >= 0 && col < numColunas && !cells[row][col].isRevelado() && !cells[row][col].isMinado()) {
+				cells[row][col].revelar();
+			}
+		}
 	}
 	
 	//daqui pra baixo é get e set

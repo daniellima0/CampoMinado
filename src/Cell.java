@@ -15,9 +15,13 @@ public class Cell extends JButton {
 	private boolean clicado;
 	private int numMinasVizinhas;
 	ArrayList<Cell> vizinhos;
+	private int x, y;
+	private Grid grid;
 	
-	
-	public Cell() {
+	public Cell(int x, int y, Grid grid) {
+		this.grid = grid;
+		this.x = x;
+		this.y = y;
 		this.vizinhos = new ArrayList();
 		numMinasVizinhas = qtdMinasVizinhas();
 		minado = false;
@@ -36,7 +40,12 @@ public class Cell extends JButton {
 		this.addMouseListener(new java.awt.event.MouseAdapter() {
 	         public void mousePressed(MouseEvent e) {
 	        	 if (SwingUtilities.isLeftMouseButton(e)) {
-	        		 botaoEsquerdoPressionado();
+	        		 try {
+						botaoEsquerdoPressionado();
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 	        	 } else if (SwingUtilities.isRightMouseButton(e)) {
 	        		 botaoDireitoPressionado();
 	             };
@@ -53,7 +62,7 @@ public class Cell extends JButton {
 		}
 	}
 
-	private void botaoEsquerdoPressionado() {
+	private void botaoEsquerdoPressionado() throws InterruptedException {
 		if (this.revelado || this.marcado) {
 			return;
 		} else {
@@ -63,9 +72,10 @@ public class Cell extends JButton {
 				// implementar fim de jogo aqui
 			} else {
 				System.out.println("nao ta minado");
-				numMinasVizinhas = qtdMinasVizinhas();	
+				//numMinasVizinhas = qtdMinasVizinhas();	
 				System.out.println(numMinasVizinhas);
 			}
+			System.out.println(x + " " + y);
 			revelar();
 		}
 		
@@ -87,7 +97,9 @@ public class Cell extends JButton {
 		}
 	}
 	
-	public void revelar() {
+	public void revelar() throws InterruptedException {
+		Thread.sleep(0);
+		System.out.println("Num de vizinhos: " + numMinasVizinhas);
 		this.revelado = true;
 		
 		if(this.minado) {
@@ -97,13 +109,9 @@ public class Cell extends JButton {
 			switch(numMinasVizinhas) {
 			  case 0:
 				adicionarImagem("./Assets/0.png");
-				System.out.println("chegou aqui");
-//				for(int i = 0; i < vizinhos.size(); i++) {
-//					if (vizinhos.get(i).numMinasVizinhas == 0 && vizinhos.get(i).revelado == false 
-//							&& vizinhos.get(i).minado == false) {
-//						vizinhos.get(i).revelar();
-//					}
-//				}
+				System.out.println("chegou aqui " + x + " " + y);
+				grid.dfs(x, y);
+
 			    break;
 			  case 1:
 				adicionarImagem("./Assets/1.png");
