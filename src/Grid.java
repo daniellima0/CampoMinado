@@ -7,35 +7,35 @@ import java.util.Random;
 
 public class Grid extends JPanel{
 	private Cell[][] cells;
-	private int numLinhas = 10;
-	private int numColunas = 10;
+	private int numOfLines = 10;
+	private int numOfColumns = 10;
 	
 	public Grid() {
 		setMaximumSize(new Dimension(420, 420));
-		setLayout(new GridLayout(numLinhas,numColunas));
-		createCells(numLinhas, numColunas);
-		adicionarMinas();
-		adicionaVizinhos();
+		setLayout(new GridLayout(numOfLines,numOfColumns));
+		createCells(numOfLines, numOfColumns);
+		addMinesToField();
+		addNeighbors();
 	}
 	
 	
 	
-	public void adicionaVizinhos() {
-		for (int i = 0; i < numLinhas; i++) {
-		    for (int j = 0; j < numColunas; j++) {
+	public void addNeighbors() {
+		for (int i = 0; i < numOfLines; i++) {
+		    for (int j = 0; j < numOfColumns; j++) {
 		        if (i > 0){
-		            if (j > 0) cells[i][j].adicionarVizinho(cells[i-1][j-1]);
-		            cells[i][j].adicionarVizinho(cells[i-1][j]);
-		            if (j < numColunas-1) cells[i][j].adicionarVizinho(cells[i-1][j+1]);
+		            if (j > 0) cells[i][j].addNeighbor(cells[i-1][j-1]);
+		            cells[i][j].addNeighbor(cells[i-1][j]);
+		            if (j < numOfColumns-1) cells[i][j].addNeighbor(cells[i-1][j+1]);
 		        }
 		        
-		        if (j > 0) cells[i][j].adicionarVizinho(cells[i][j-1]);                
-		        if (j < numColunas-1)cells[i][j].adicionarVizinho(cells[i][j+1]);
+		        if (j > 0) cells[i][j].addNeighbor(cells[i][j-1]);                
+		        if (j < numOfColumns-1)cells[i][j].addNeighbor(cells[i][j+1]);
 		        
-		        if(i < numLinhas -1){
-		            if (j > 0)cells[i][j].adicionarVizinho(cells[i+1][j-1]);
-		            cells[i][j].adicionarVizinho(cells[i+1][j]);
-		            if (j < numColunas-1)cells[i][j].adicionarVizinho(cells[i+1][j+1]);
+		        if(i < numOfLines -1){
+		            if (j > 0)cells[i][j].addNeighbor(cells[i+1][j-1]);
+		            cells[i][j].addNeighbor(cells[i+1][j]);
+		            if (j < numOfColumns-1)cells[i][j].addNeighbor(cells[i+1][j+1]);
 		        }
 		    }
 		}
@@ -51,57 +51,57 @@ public class Grid extends JPanel{
 		}
 	}
 	
-	public void adicionarMinas(){
+	public void addMinesToField(){
         int n = 10;
         Random rand = new Random();
         while (n > 0){            
-            int l = rand.nextInt(numLinhas); 
-            int c = rand.nextInt(numColunas);             
-            if (cells[l][c].minar()){
+            int l = rand.nextInt(numOfLines); 
+            int c = rand.nextInt(numOfColumns);             
+            if (cells[l][c].mine()){
                 n--;
             }            
         }	 
      }
 	
-	// não utilizada
-	public void revelarMinas() {
-		for(int i = 0; i < numLinhas; i++) {
-			for(int j = 0; j < numColunas; j++) {
-				if (cells[i][j].isMinado() && cells[i][j].isRevelado()) {
-					
+	// not used
+	public void revealMines() {
+		for(int i = 0; i < numOfLines; i++) {
+			for(int j = 0; j < numOfColumns; j++) {
+				if (cells[i][j].isMined() && !cells[i][j].isRevealed()) {
+					cells[i][j].reveal();
 				}
 			}
 		}
 	}
 	
-	// não utilizada
-	public void desativaBotoes() {
-		for (int i = 0; i < numLinhas; i++) {
-			for (int j = 0; j < numColunas; j++) {
+	// not used
+	public void disableCells() {
+		for (int i = 0; i < numOfLines; i++) {
+			for (int j = 0; j < numOfColumns; j++) {
 				cells[i][j].setEnabled(false);
 	        }
 	    }
 	}
 	
-	//daqui pra baixo é get e set
+	// Getters and setters
 	public Cell[][] getCells() {
 		return cells;
 	}
 
 	public int getNumLinhas() {
-		return numLinhas;
+		return numOfLines;
 	}
 
 	public void setNumLinhas(int numLinhas) {
-		this.numLinhas = numLinhas;
+		this.numOfLines = numLinhas;
 	}
 
 	public int getNumColunas() {
-		return numColunas;
+		return numOfColumns;
 	}
 
 	public void setNumColunas(int numColunas) {
-		this.numColunas = numColunas;
+		this.numOfColumns = numColunas;
 	}
 
 	public void setCells(Cell[][] cells) {

@@ -8,14 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GameScreen {
-	public JFrame GameScreenFrame;
+public class GameScreen extends JFrame{
 	public GameScreen() {
-		GameScreenFrame = new JFrame();
-		GameScreenFrame.setTitle("Campo Minado");
-		GameScreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GameScreenFrame.setPreferredSize(new Dimension(500,600));
-		GameScreenFrame.setResizable(false);
+		setTitle("Minesweeper");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setPreferredSize(new Dimension(500,600));
+		setResizable(false);
 
 		JPanel window = new JPanel();
 		window.setLayout(new BoxLayout(window, BoxLayout.Y_AXIS));
@@ -26,7 +24,7 @@ public class GameScreen {
 		topbar.setMaximumSize(new Dimension(420, 70));
 		topbar.setBackground(Color.WHITE);
 		
-		JLabel temp = new JLabel(" CAMPO MINADO");
+		JLabel temp = new JLabel(" Minesweeper");
 		temp.setFont(new Font("Sans Serif", Font.PLAIN, 30));
 		temp.setForeground(Color.BLUE);
 		topbar.add(temp);
@@ -36,9 +34,9 @@ public class GameScreen {
 		window.add(topbar);
 		window.add(grid);
 		
-		GameScreenFrame.add(window);
-		GameScreenFrame.pack(); //nao sei o que eh mas se tirar n funciona
-		GameScreenFrame.setVisible(true);
+		add(window);
+		pack();
+		setVisible(true);
 	}
 	
 	

@@ -1,5 +1,5 @@
 
-public class CampoMinado {
+public class Minesweeper {
 
 	public static void main(String[] args) {
 		new GameScreen();
