@@ -3,7 +3,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.SwingUtilities;
 import java.util.ArrayList;
@@ -14,11 +17,11 @@ public class Cell extends JButton {
 	private boolean isFlagged;
 	private int numOfMinesAround;
 	ArrayList<Cell> neighbors;
+	private Handler handler; // understand why the code needs this (1)
 	
-	
-	public Cell() {
+	public Cell(Handler handler) {
+		this.handler = handler;
 		this.neighbors = new ArrayList();
-		numOfMinesAround = getNumOFMinesAround();
 		isMined = false;
 		isRevealed = false;
 		isFlagged = false;
@@ -30,16 +33,32 @@ public class Cell extends JButton {
 		} catch (Exception ex) {
 		    System.out.println(ex);
 		}
+
+		addMouseListener(new MouseListener() {
+		       @Override
+		       public void mouseClicked(MouseEvent e) {
+		           if(SwingUtilities.isLeftMouseButton(e)) {
+		        	   clickButton();
+		           } else {
+		        	   rightClickButton();
+		           }
+		       }
 		
-		this.addMouseListener(new java.awt.event.MouseAdapter() {
-	         public void mousePressed(MouseEvent e) {
-	        	 if (SwingUtilities.isLeftMouseButton(e)) {
-	        		 leftButtonPressed();
-	        	 } else if (SwingUtilities.isRightMouseButton(e)) {
-	        		 rightButtonPressed();
-	             };
-	         }
-	     });
+		       public void mouseEntered(MouseEvent e) {}
+		       public void mouseExited(MouseEvent e) {}
+		       public void mousePressed(MouseEvent e) {}
+		       public void mouseReleased(MouseEvent e) {}
+		       });
+	}
+	
+	// understand why the code needs this (2)
+	public void clickButton() {
+		handler.click(this);
+	}
+	
+	// understand why the code needs this (3)
+	public void rightClickButton() {
+		handler.rightClick(this);
 	}
 	
 	public boolean mine(){
@@ -50,52 +69,21 @@ public class Cell extends JButton {
 			return false;
 		}
 	}
-
-	private void leftButtonPressed() {
-		if (this.isRevealed) {
-			return;
-		} else {
-			if(this.isMined) {
-				System.out.println("is mined");
-				this.isMined = true;
-				// implementar fim de jogo aqui
-			} else {
-				System.out.println("is not mined");
-				numOfMinesAround = getNumOFMinesAround();	
-				System.out.println(numOfMinesAround);
-			}
-			reveal();
-		}
-		
-	}
-	
-	private void rightButtonPressed() {
-		if (this.isRevealed) {
-			return;
-		} else {
-			if (!this.isFlagged) {
-				addImage("./Assets/flagged.png");
-				System.out.println("put flag");	
-				this.isFlagged = true;
-			} else {
-				addImage("./Assets/facingDown.png");
-				System.out.println("remove flag");	
-				this.isFlagged = false;
-			}
-		}
-	}
 	
 	public void reveal() {
 		this.isRevealed = true;
 		
 		if(this.isMined) {
 			addImage("./Assets/bomb.png");
-			new Menu();
 		} else {
 			switch(numOfMinesAround) {
 			  case 0:
 				addImage("./Assets/0.png");
-				System.out.println("it got here");
+				for (int i = 0; i < neighbors.size(); i++) {
+					if (!neighbors.get(i).isMined && !neighbors.get(i).isRevealed) {
+						neighbors.get(i).reveal();
+					}
+				}
 			    break;
 			  case 1:
 				addImage("./Assets/1.png");
@@ -127,6 +115,10 @@ public class Cell extends JButton {
 		}
 	}
 	
+//	public void revealBlankSpacesAround() {
+//		
+//	}
+	
 	public void addImage(String caminho) {
 		try {
 		    Image img = ImageIO.read(getClass().getResource(caminho));
@@ -140,17 +132,8 @@ public class Cell extends JButton {
 	public void addNeighbor(Cell neighbor){
         this.neighbors.add(neighbor);
     }
-	
-	public int getNumOFMinesAround() {
-		for(int i = 0; i < neighbors.size(); i++) {
-			if(neighbors.get(i).isMined) {
-				numOfMinesAround++;
-			}
-		}
-		return numOfMinesAround;
-	}
 
-	// Getters and setters
+	// Getters and setters      --review which ones are note used and delete them
 	public boolean isMined() {
 		return isMined;
 	}
