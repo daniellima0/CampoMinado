@@ -45,6 +45,7 @@ public class GameScreen extends JFrame{
 		window.add(grid);
 		add(window);
 		pack();
+		setLocationRelativeTo(null); // centers the screen if called after the pack method
 		setVisible(true);
 	}
 	

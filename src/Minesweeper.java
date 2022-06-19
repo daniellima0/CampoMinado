@@ -6,6 +6,7 @@ public class Minesweeper {
 	
 	public static void main(String[] args) {
 		new Minesweeper();
+		// delete this when is not necessary in the whole project
 	}
 
 }

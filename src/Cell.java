@@ -79,11 +79,7 @@ public class Cell extends JButton {
 			switch(numOfMinesAround) {
 			  case 0:
 				addImage("./Assets/0.png");
-				for (int i = 0; i < neighbors.size(); i++) {
-					if (!neighbors.get(i).isMined && !neighbors.get(i).isRevealed) {
-						neighbors.get(i).reveal();
-					}
-				}
+				revealBlankSpacesAround();
 			    break;
 			  case 1:
 				addImage("./Assets/1.png");
@@ -115,9 +111,13 @@ public class Cell extends JButton {
 		}
 	}
 	
-//	public void revealBlankSpacesAround() {
-//		
-//	}
+	public void revealBlankSpacesAround() {
+		for (int i = 0; i < neighbors.size(); i++) {
+			if (!neighbors.get(i).isMined && !neighbors.get(i).isRevealed) {
+				neighbors.get(i).clickButton();
+			}
+		}
+	}
 	
 	public void addImage(String caminho) {
 		try {
@@ -125,7 +125,7 @@ public class Cell extends JButton {
 		    img = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
 		    this.setIcon(new ImageIcon(img));
 		  } catch (Exception ex) {
-		    System.out.println(ex);
+			  System.out.println(ex);
 		  }
 	}
 	

@@ -10,6 +10,7 @@ public class Grid extends JPanel{
 	private int numOfLines = 10;
 	private int numOfColumns = 10;
 	private Handler handler;
+	private int victoryCounter;
 	
 	public Grid() {
 		handler = new Handler(this);
@@ -94,6 +95,20 @@ public class Grid extends JPanel{
 	        }
 	    }
 	}
+	
+	public boolean checkVictory() {
+		System.out.println(victoryCounter);
+		if (this.victoryCounter >= 90) return true;
+		return false;
+	}
+	
+	public void endGame(int endGameStatus) {
+		if (endGameStatus == 1) {
+			System.out.println("You won!");
+		} else {
+			revealMines();	
+		}
+	}
 
 	// Getters and setters      --review which ones are note used and delete them
 	public Cell[][] getCells() {
@@ -118,5 +133,13 @@ public class Grid extends JPanel{
 
 	public void setNumOfColumns(int numOfColumns) {
 		this.numOfColumns = numOfColumns;
+	}
+
+	public int getVictoryCounter() {
+		return victoryCounter;
+	}
+
+	public void setVictoryCounter(int victoryCounter) {
+		this.victoryCounter = victoryCounter;
 	}
 }

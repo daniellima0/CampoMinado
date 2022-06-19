@@ -1,22 +1,24 @@
 
 public class Handler {
 	private Grid grid;
+	
 	public Handler(Grid grid) {
 		this.grid = grid;
 	}
+	
 	public void click(Cell cell) {
 		if (cell.isRevealed() || cell.isFlagged()) {
 			return;
 		} else {
 			if(cell.isMined()) {
-				System.out.println("is mined");
-				grid.revealMines();
-				// implementar fim de jogo aqui
+				grid.endGame(0);
 			} else {
-				System.out.println("is not mined");	
-				System.out.println(cell.getNumOfMinesAround());
+				grid.setVictoryCounter(grid.getVictoryCounter() + 1);	
 			}
 			cell.reveal();
+			if(grid.checkVictory()) {
+				grid.endGame(1);
+			}
 		}
 	}
 	
@@ -25,12 +27,10 @@ public class Handler {
 			return;
 		} else {
 			if (!cell.isFlagged()) {
-				cell.addImage("./Assets/flagged.png");
-				System.out.println("put flag");	
+				cell.addImage("./Assets/flagged.png");	
 				cell.setFlagged(true);
 			} else {
 				cell.addImage("./Assets/facingDown.png");
-				System.out.println("remove flag");	
 				cell.setFlagged(false);
 			}
 		}
