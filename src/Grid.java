@@ -135,6 +135,7 @@ public class Grid extends JPanel{
 		} else {
 			revealMines();
 			disableAllCells();
+			System.out.println("You lost!");
 		}
 	}
 
