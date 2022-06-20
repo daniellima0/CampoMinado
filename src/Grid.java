@@ -87,11 +87,12 @@ public class Grid extends JPanel{
 		}
 	}
 	
-	// not used
 	public void disableCells() {
 		for (int i = 0; i < numOfLines; i++) {
 			for (int j = 0; j < numOfColumns; j++) {
-				cells[i][j].setEnabled(false);
+				if (!cells[i][j].isMined()) {
+					cells[i][j].setEnabled(false);					
+				}
 	        }
 	    }
 	}
@@ -106,11 +107,12 @@ public class Grid extends JPanel{
 		if (endGameStatus == 1) {
 			System.out.println("You won!");
 		} else {
-			revealMines();	
+			revealMines();
+			disableCells();
 		}
 	}
 
-	// Getters and setters      --review which ones are note used and delete them
+	// Getters and setters      --review which ones are not used and delete them
 	public Cell[][] getCells() {
 		return cells;
 	}

@@ -4,7 +4,6 @@ import javax.swing.JButton;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -33,13 +32,17 @@ public class Cell extends JButton {
 		} catch (Exception ex) {
 		    System.out.println(ex);
 		}
-
+		
+		// Action Listener for mouse left click
+		this.addActionListener((ActionEvent evt) -> {
+			clickButton();
+		});
+		
+		// Mouse Listener for mouse right click
 		addMouseListener(new MouseListener() {
 		       @Override
 		       public void mouseClicked(MouseEvent e) {
-		           if(SwingUtilities.isLeftMouseButton(e)) {
-		        	   clickButton();
-		           } else {
+		           if(SwingUtilities.isRightMouseButton(e)) {
 		        	   rightClickButton();
 		           }
 		       }
@@ -48,7 +51,7 @@ public class Cell extends JButton {
 		       public void mouseExited(MouseEvent e) {}
 		       public void mousePressed(MouseEvent e) {}
 		       public void mouseReleased(MouseEvent e) {}
-		       });
+		});
 	}
 	
 	// understand why the code needs this (2)
@@ -133,7 +136,7 @@ public class Cell extends JButton {
         this.neighbors.add(neighbor);
     }
 
-	// Getters and setters      --review which ones are note used and delete them
+	// Getters and setters      --review which ones are not used and delete them
 	public boolean isMined() {
 		return isMined;
 	}
