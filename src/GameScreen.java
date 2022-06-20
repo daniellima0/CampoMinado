@@ -53,7 +53,7 @@ public class GameScreen extends JFrame{
 		reset = new JButton("Reset");
 		reset.setFont(new Font("Sans Serif", Font.PLAIN, 18));
 		reset.addActionListener((ActionEvent e) -> {
-	        System.out.println(levelChosed);
+	        System.out.println("reset");
 //	        resetGame();
 		});
 

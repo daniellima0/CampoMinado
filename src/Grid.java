@@ -87,10 +87,20 @@ public class Grid extends JPanel{
 		}
 	}
 	
-	public void disableCells() {
+	public void disableAllCells() {
 		for (int i = 0; i < numOfLines; i++) {
 			for (int j = 0; j < numOfColumns; j++) {
 				if (!cells[i][j].isMined()) {
+					cells[i][j].setEnabled(false);					
+				}
+	        }
+	    }
+	}
+	
+	public void disableUnrevealedCells() {
+		for (int i = 0; i < numOfLines; i++) {
+			for (int j = 0; j < numOfColumns; j++) {
+				if (cells[i][j].isMined() || !cells[i][j].isRevealed()) {
 					cells[i][j].setEnabled(false);					
 				}
 	        }
@@ -105,10 +115,11 @@ public class Grid extends JPanel{
 	
 	public void endGame(int endGameStatus) {
 		if (endGameStatus == 1) {
+			disableUnrevealedCells();
 			System.out.println("You won!");
 		} else {
 			revealMines();
-			disableCells();
+			disableAllCells();
 		}
 	}
 
