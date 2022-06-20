@@ -16,7 +16,7 @@ public class Cell extends JButton {
 	private boolean isFlagged;
 	private int numOfMinesAround;
 	ArrayList<Cell> neighbors;
-	private Handler handler; // understand why the code needs this (1)
+	private Handler handler;
 	
 	public Cell(Handler handler) {
 		this.handler = handler;
@@ -54,12 +54,10 @@ public class Cell extends JButton {
 		});
 	}
 	
-	// understand why the code needs this (2)
 	public void clickButton() {
 		handler.click(this);
 	}
 	
-	// understand why the code needs this (3)
 	public void rightClickButton() {
 		handler.rightClick(this);
 	}
@@ -142,7 +140,7 @@ public class Cell extends JButton {
 	}
 
 	public void setMined(boolean isMined) {
-		isMined = isMined;
+		this.isMined = isMined;
 	}
 
 	public boolean isRevealed() {

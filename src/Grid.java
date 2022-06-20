@@ -11,28 +11,39 @@ import java.util.Random;
 
 public class Grid extends JPanel{
 	private Cell[][] cells;
-	private int numOfLines = 10;
-	private int numOfColumns = 10;
+	private int numOfLines;
+	private int numOfColumns;
 	private Handler handler;
 	private int victoryCounter;
 	
 	public Grid() {
+		numOfLines = 10;
+		numOfColumns = 10;
 		handler = new Handler(this);
 		setMaximumSize(new Dimension(420, 420));
 		setLayout(new GridLayout(numOfLines,numOfColumns));
-		// combine these functions
 		createCells(numOfLines, numOfColumns, handler);
 		addMinesToField();
 		addNeighbors();
 		addNumOfMinesAround();
 	}
 	
-	public void createCells(int numLinhas, int numColunas, Handler handler) {
-		cells = new Cell[numLinhas][numColunas];
-		for(int i = 0; i < numLinhas; i++) {
-			for(int j = 0; j < numColunas; j++) {
+	public void createCells(int numOfLines, int numOfColumns, Handler handler) {
+		cells = new Cell[numOfLines][numOfColumns];
+		for(int i = 0; i < numOfLines; i++) {
+			for(int j = 0; j < numOfColumns; j++) {
 				cells[i][j] = new Cell(handler);
 				add(cells[i][j]);
+			}
+		}
+	}
+	
+	public void removeCells(int numOfLines, int numOfColumns, Handler handler) {
+		cells = new Cell[numOfLines][numOfColumns];
+		for(int i = 0; i < numOfLines; i++) {
+			for(int j = 0; j < numOfColumns; j++) {
+				cells[i][j] = new Cell(handler);
+				remove(cells[i][j]);
 			}
 		}
 	}
@@ -130,14 +141,10 @@ public class Grid extends JPanel{
 	public void removeNeighbors() {
 		for (int i = 0; i < numOfLines; i++) {
 			for (int j = 0; j < numOfColumns; j++) {
-//				for (int k = 0; k < cells[i][j].getNeighbors().size(); k++) {
-//					cells[i][j].getNeighbors().remove(0);
-//				}
-				
-				Iterator<Cell> it = cells[i][j].getNeighbors().iterator();
-				while (it.hasNext()) {
-				   Cell iii = it.next();
-				   it.remove();
+				Iterator<Cell> iterator = cells[i][j].getNeighbors().iterator();
+				while (iterator.hasNext()) {
+				   Cell nextIterator = iterator.next();
+				   iterator.remove();
 				}
 			}
 		}
@@ -171,31 +178,7 @@ public class Grid extends JPanel{
 		addNumOfMinesAround();
 	}
 	
-	// Getters and setters      --review which ones are not used and delete them
-	public Cell[][] getCells() {
-		return cells;
-	}
-
-	public void setCells(Cell[][] cells) {
-		this.cells = cells;
-	}
-
-	public int getNumOfLines() {
-		return numOfLines;
-	}
-
-	public void setNumOfLines(int numOfLines) {
-		this.numOfLines = numOfLines;
-	}
-
-	public int getNumOfColumns() {
-		return numOfColumns;
-	}
-
-	public void setNumOfColumns(int numOfColumns) {
-		this.numOfColumns = numOfColumns;
-	}
-
+	// Getters and setters
 	public int getVictoryCounter() {
 		return victoryCounter;
 	}
