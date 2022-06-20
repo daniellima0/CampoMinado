@@ -1,7 +1,11 @@
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.util.Iterator;
 import java.util.Random;
 
 
@@ -23,17 +27,6 @@ public class Grid extends JPanel{
 		addNumOfMinesAround();
 	}
 	
-	public void addNumOfMinesAround() {
-		for(int i = 0; i < numOfLines; i++) {
-			for(int j = 0; j < numOfColumns; j++) {
-				for(int k = 0; k < cells[i][j].neighbors.size(); k++) {
-					if(cells[i][j].neighbors.get(k).isMined()) {
-						cells[i][j].setNumOfMinesAround(cells[i][j].getNumOfMinesAround() + 1);
-					}
-				}
-			}
-		}
-	}
 	public void createCells(int numLinhas, int numColunas, Handler handler) {
 		cells = new Cell[numLinhas][numColunas];
 		for(int i = 0; i < numLinhas; i++) {
@@ -77,6 +70,18 @@ public class Grid extends JPanel{
 		}
 	}
 	
+	public void addNumOfMinesAround() {
+		for(int i = 0; i < numOfLines; i++) {
+			for(int j = 0; j < numOfColumns; j++) {
+				for(int k = 0; k < cells[i][j].neighbors.size(); k++) {
+					if(cells[i][j].neighbors.get(k).isMined()) {
+						cells[i][j].setNumOfMinesAround(cells[i][j].getNumOfMinesAround() + 1);
+					}
+				}
+			}
+		}
+	}
+	
 	public void revealMines() {
 		for(int i = 0; i < numOfLines; i++) {
 			for(int j = 0; j < numOfColumns; j++) {
@@ -108,8 +113,7 @@ public class Grid extends JPanel{
 	}
 	
 	public boolean checkVictory() {
-		System.out.println(victoryCounter);
-		if (this.victoryCounter >= 90) return true;
+		if (victoryCounter >= 90) return true;
 		return false;
 	}
 	
@@ -123,6 +127,50 @@ public class Grid extends JPanel{
 		}
 	}
 
+	public void removeNeighbors() {
+		for (int i = 0; i < numOfLines; i++) {
+			for (int j = 0; j < numOfColumns; j++) {
+//				for (int k = 0; k < cells[i][j].getNeighbors().size(); k++) {
+//					cells[i][j].getNeighbors().remove(0);
+//				}
+				
+				Iterator<Cell> it = cells[i][j].getNeighbors().iterator();
+				while (it.hasNext()) {
+				   Cell iii = it.next();
+				   it.remove();
+				}
+			}
+		}
+	}
+	
+	public void resetGame() {
+		for (int i = 0; i < numOfLines; i++) {
+			for (int j = 0; j < numOfColumns; j++) {
+				cells[i][j].setEnabled(true);
+				
+				// Put initial image on the cell
+				try {
+				    Image img = ImageIO.read(getClass().getResource("./Assets/facingDown.png"));
+				    img = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
+				    cells[i][j].setIcon(new ImageIcon(img));
+				} catch (Exception ex) {
+				    System.out.println(ex);
+				}
+				
+				// Reset cell attributes
+				cells[i][j].setMined(false);
+				cells[i][j].setRevealed(false);
+				cells[i][j].setFlagged(false);
+				cells[i][j].setNumOfMinesAround(0);
+			}
+		}
+		victoryCounter = 0;
+		addMinesToField();
+		removeNeighbors();
+		addNeighbors();
+		addNumOfMinesAround();
+	}
+	
 	// Getters and setters      --review which ones are not used and delete them
 	public Cell[][] getCells() {
 		return cells;

@@ -20,7 +20,7 @@ public class Cell extends JButton {
 	
 	public Cell(Handler handler) {
 		this.handler = handler;
-		this.neighbors = new ArrayList();
+		neighbors = new ArrayList();
 		isMined = false;
 		isRevealed = false;
 		isFlagged = false;
@@ -28,13 +28,13 @@ public class Cell extends JButton {
 		try {
 		    Image img = ImageIO.read(getClass().getResource("./Assets/facingDown.png"));
 		    img = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-		    this.setIcon(new ImageIcon(img));
+		    setIcon(new ImageIcon(img));
 		} catch (Exception ex) {
 		    System.out.println(ex);
 		}
 		
 		// Action Listener for mouse left click
-		this.addActionListener((ActionEvent evt) -> {
+		addActionListener((ActionEvent evt) -> {
 			clickButton();
 		});
 		
@@ -65,8 +65,8 @@ public class Cell extends JButton {
 	}
 	
 	public boolean mine(){
-		if(!this.isMined){
-			this.isMined = true;
+		if(!isMined){
+			isMined = true;
 			return true;
 		}else{
 			return false;
@@ -74,9 +74,9 @@ public class Cell extends JButton {
 	}
 	
 	public void reveal() {
-		this.isRevealed = true;
+		isRevealed = true;
 		
-		if(this.isMined) {
+		if(isMined) {
 			addImage("./Assets/bomb.png");
 		} else {
 			switch(numOfMinesAround) {
@@ -126,14 +126,14 @@ public class Cell extends JButton {
 		try {
 		    Image img = ImageIO.read(getClass().getResource(caminho));
 		    img = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-		    this.setIcon(new ImageIcon(img));
+		    setIcon(new ImageIcon(img));
 		  } catch (Exception ex) {
 			  System.out.println(ex);
 		  }
 	}
 	
 	public void addNeighbor(Cell neighbor){
-        this.neighbors.add(neighbor);
+        neighbors.add(neighbor);
     }
 
 	// Getters and setters      --review which ones are not used and delete them
@@ -142,7 +142,7 @@ public class Cell extends JButton {
 	}
 
 	public void setMined(boolean isMined) {
-		this.isMined = isMined;
+		isMined = isMined;
 	}
 
 	public boolean isRevealed() {

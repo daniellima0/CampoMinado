@@ -49,12 +49,15 @@ public class GameScreen extends JFrame{
 	        System.out.println(levelChosed);
 		});
 		
+		// Creating grid object
+		Grid grid = new Grid();
+
 		// Creating reset JButton
 		reset = new JButton("Reset");
 		reset.setFont(new Font("Sans Serif", Font.PLAIN, 18));
 		reset.addActionListener((ActionEvent e) -> {
 	        System.out.println("reset");
-//	        resetGame();
+	        grid.resetGame();
 		});
 
 		// Building screen structure and setting the JFrame visible
@@ -62,7 +65,6 @@ public class GameScreen extends JFrame{
 		topBar.add(reset);
 		window.add(topBar);
 		
-		Grid grid = new Grid();
 		window.add(grid);
 		add(window);
 		pack();
